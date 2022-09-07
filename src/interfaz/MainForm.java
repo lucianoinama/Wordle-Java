@@ -15,17 +15,21 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 
 public class MainForm {
 
-	private JFrame frame;
+	private final JFrame frame = new JFrame();
 	private JTextField textField;
-
+	public JPanel panel_1;
+	public Juego juego = new Juego();
+	static ArrayList<JLabel> lblF1 = new ArrayList<JLabel>();
 	/**
 	 * Launch the application.
 	 */
@@ -47,6 +51,8 @@ public class MainForm {
 	 */
 	public MainForm() {
 		initialize();
+		panel_1 = new JPanel();
+	
 	}
 
 //	public static void escribirLabels(ArrayList<JLabel> array, char a) {
@@ -62,8 +68,7 @@ public class MainForm {
 	private void initialize() {
 		
 		
-	    Juego game = new Juego();
-		frame = new JFrame();
+		//frame = new JFrame();
 		frame.setBounds(100, 100, 642, 415);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -73,13 +78,18 @@ public class MainForm {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Ingresar Palabra");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel.setBounds(33, 65, 171, 28);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblIngr = new JLabel("Ingresar Palabra");
+		lblIngr.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblIngr.setBounds(33, 65, 171, 28);
+		frame.getContentPane().add(lblIngr);
 		
-		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton boton1 = new JButton("Ingresar");
+		
+		JPanel panel_1 = new JPanel();
+		
+		boton1.addActionListener(new ActionListener() {
+			//Juego game = new Juego();
+			
 			public void actionPerformed(ActionEvent e) {
 			
 				String palabra = textField.getText();
@@ -87,109 +97,36 @@ public class MainForm {
 					JOptionPane.showMessageDialog(null, "Palabra Invalida", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else{
-					game.obtenerPalabraIngresada(textField.getText().trim());
+					lblF1.clear();
+					
+					crearLabel(palabra, panel_1);
+				
+
+					
+					juego.obtenerPalabraIngresada(textField.getText().trim());
+					textField.setText("");
+					
 				}
 			}
 		});
-		btnNewButton.setBounds(441, 71, 85, 21);
-		frame.getContentPane().add(btnNewButton);
+		boton1.setBounds(441, 71, 85, 21);
+		frame.getContentPane().add(boton1);
 		
-		JPanel panel_1 = new JPanel();
+		
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(33, 149, 585, 198);
 		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(5, 5, 0, 0));
+		
+		panel_1.setLayout(new GridLayout(0, 5));
+		panel_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		panel_1.setOpaque(true);
+		
+		//crearLabel(this.juego.mostrarPalabraSeleccionada(), panel_1);
 		
 		
-		ArrayList<JLabel> lblF1 = new ArrayList<JLabel>();
 		
 		
-		
-		// PRIMERA FILA
-		JLabel lbl1F1 = new JLabel("");
-		panel_1.add(lbl1F1);
-		lblF1.add(lbl1F1);
-		
-		JLabel lbl2F1 = new JLabel("");
-		panel_1.add(lbl2F1);
-		lblF1.add(lbl2F1);
 
-		
-		JLabel lbl3F1 = new JLabel("");
-		panel_1.add(lbl3F1);
-		lblF1.add(lbl3F1);
-
-		JLabel lbl4F1 = new JLabel("");
-		panel_1.add(lbl4F1);
-		lblF1.add(lbl4F1);
-
-		JLabel lbl5F1 = new JLabel("");
-		panel_1.add(lbl5F1);
-		lblF1.add(lbl5F1);
-
-		// SEGUNDA FILA
-		JLabel lblNewLabel_7 = new JLabel("New label");
-		panel_1.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_9 = new JLabel("New label");
-		panel_1.add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_11 = new JLabel("New label");
-		panel_1.add(lblNewLabel_11);
-		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		panel_1.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_8 = new JLabel("New label");
-		panel_1.add(lblNewLabel_8);
-		
-		// TERCERA FILA
-		JLabel lblNewLabel_10 = new JLabel("New label");
-		panel_1.add(lblNewLabel_10);
-		
-		JLabel lblNewLabel_16 = new JLabel("New label");
-		panel_1.add(lblNewLabel_16);
-		
-		JLabel lblNewLabel_17 = new JLabel("New label");
-		panel_1.add(lblNewLabel_17);
-		
-		JLabel lblNewLabel_21 = new JLabel("New label");
-		panel_1.add(lblNewLabel_21);
-		
-		JLabel lblNewLabel_13 = new JLabel("New label");
-		panel_1.add(lblNewLabel_13);
-		
-		// CUARTA FILA
-		JLabel lblNewLabel_12 = new JLabel("New label");
-		panel_1.add(lblNewLabel_12);
-		
-		JLabel lblNewLabel_14 = new JLabel("New label");
-		panel_1.add(lblNewLabel_14);
-		
-		JLabel lblNewLabel_15 = new JLabel("New label");
-		panel_1.add(lblNewLabel_15);
-		
-		JLabel lblNewLabel_18 = new JLabel("New label");
-		panel_1.add(lblNewLabel_18);
-		
-		JLabel lblNewLabel_19 = new JLabel("New label");
-		panel_1.add(lblNewLabel_19);
-		
-		//QUINTA FILA
-		JLabel lblNewLabel_20 = new JLabel("New label");
-		panel_1.add(lblNewLabel_20);
-		
-		JLabel lblNewLabel_22 = new JLabel("New label");
-		panel_1.add(lblNewLabel_22);
-		
-		JLabel lblNewLabel_23 = new JLabel("New label");
-		panel_1.add(lblNewLabel_23);
-		
-		JLabel lblNewLabel_24 = new JLabel("New label");
-		panel_1.add(lblNewLabel_24);
-		
-		JLabel lblNewLabel_25 = new JLabel("New label");
-		panel_1.add(lblNewLabel_25);
 	}
 
 	
@@ -220,4 +157,36 @@ public class MainForm {
 	}
 
 
+	public static void cambiarEstadoPanel(int posicion , Color color) {
+		
+		
+		JLabel auxJ =  lblF1.get(posicion);
+		
+		//System.out.println(auxJ.toString());
+		
+		auxJ.setOpaque(true);
+		auxJ.setBackground(color);
+		
+		
+		
+	}
+	
+	public static void crearLabel(String palabra, JPanel panel) {
+		
+		String[] splitWord = palabra.split("");
+	
+		
+		
+		
+		for(int i = 0; i< splitWord.length; i++) {
+		
+			JLabel aux = new JLabel(splitWord[i], JLabel.CENTER);
+			//System.out.println(splitWord[i]);
+			panel.add(aux);
+			panel.revalidate();
+			panel.repaint();
+			lblF1.add(aux);
+		}
+		
+	}
 }
