@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import juego.Juego;
 
@@ -30,6 +31,15 @@ public class MainForm {
 	public JPanel panel_1;
 	public Juego juego = new Juego();
 	static ArrayList<JLabel> lblF1 = new ArrayList<JLabel>();
+
+	/**
+	 * Create the application.
+	 */
+	public MainForm() {
+		initialize();
+		panel_1 = new JPanel();
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,14 +56,7 @@ public class MainForm {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public MainForm() {
-		initialize();
-		panel_1 = new JPanel();
 	
-	}
 
 //	public static void escribirLabels(ArrayList<JLabel> array, char a) {
 //		
@@ -67,9 +70,11 @@ public class MainForm {
 	 */
 	private void initialize() {
 		
-		
 		//frame = new JFrame();
-		frame.setBounds(100, 100, 642, 415);
+		//frame.setBounds(100, 100, 642, 415);
+		frame.setTitle("Jueguito Wordle");
+		frame.getContentPane().setForeground(Color.WHITE);
+		frame.setBounds(650, 250, 642, 415);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -86,6 +91,7 @@ public class MainForm {
 		JButton boton1 = new JButton("Ingresar");
 		
 		JPanel panel_1 = new JPanel();
+		
 		
 		boton1.addActionListener(new ActionListener() {
 			//Juego game = new Juego();
@@ -124,22 +130,14 @@ public class MainForm {
 		//crearLabel(this.juego.mostrarPalabraSeleccionada(), panel_1);
 		
 		
+		}
 		
-		
-
-	}
-
-	
 	//Herramientas
 	
 	private static boolean wordVerif(String str) { // Verifica si la string posee un caracter especial, numero y/o longitud adecuada
-		
-		
 		if(!(str.length() == 5)) {
 			return true;
 		}
-			
-		
 		boolean result = false;
 		for (int i = 0; i < str.length(); i++) {
 			boolean acum = true;
@@ -153,40 +151,31 @@ public class MainForm {
 			acum = true;
 		}
 		return result;
-		
 	}
 
 
 	public static void cambiarEstadoPanel(int posicion , Color color) {
-		
-		
 		JLabel auxJ =  lblF1.get(posicion);
-		
 		//System.out.println(auxJ.toString());
-		
 		auxJ.setOpaque(true);
-		auxJ.setBackground(color);
-		
-		
-		
+		auxJ.setBackground(color);	
 	}
 	
-	public static void crearLabel(String palabra, JPanel panel) {
-		
+	public static void crearLabel(String palabra, JPanel panel) {	
 		String[] splitWord = palabra.split("");
-	
-		
-		
-		
 		for(int i = 0; i< splitWord.length; i++) {
-		
 			JLabel aux = new JLabel(splitWord[i], JLabel.CENTER);
 			//System.out.println(splitWord[i]);
 			panel.add(aux);
 			panel.revalidate();
 			panel.repaint();
 			lblF1.add(aux);
-		}
-		
+		}	
 	}
+	
+	//usado para mostrar pantalla luego de tocar el boton enter en la primer imagen
+	public void visualizarJuego() {
+		this.frame.setVisible(true);
+	}
+
 }
