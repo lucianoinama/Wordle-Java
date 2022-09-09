@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import interfaz.MainForm;
 
 public class Juego {
@@ -19,11 +22,11 @@ public class Juego {
 	//Variables
 	private String palabraSeleccionadaDeLista;
 	
-	public enum EstadoLetra { CorrectaUbicada, CorrectaNoUbicada, Incorrecta }
+	//public enum EstadoLetra { CorrectaUbicada, CorrectaNoUbicada, Incorrecta }
 	private String palabraIngresada;
-	private EstadoLetra[] palabraEstatus= {EstadoLetra.CorrectaUbicada , EstadoLetra.CorrectaUbicada , EstadoLetra.Incorrecta};
+	//private EstadoLetra[] palabraEstatus= {EstadoLetra.CorrectaUbicada , EstadoLetra.CorrectaUbicada , EstadoLetra.Incorrecta};
 	
-	private int intentos = 3;
+	private int intentos = 6, contadorVerdes;
 	
 	
 	public Juego(){
@@ -35,9 +38,10 @@ public class Juego {
 	
 	//Metodos
 	
-	public void seleccionarPalabraAleatoria() {
+	private void seleccionarPalabraAleatoria() {
 		//File wordFile = new File("\\Users\\agusl\\Desktop\\Universidad\\Progra III\\tpwordle\\assets\\words.txt");
-		File wordFile = new File("C:\\Users\\Juani\\git\\tpwordle\\assets\\words.txt");
+		//File wordFile = new File("C:\\Users\\Juani\\git\\tpwordle\\assets\\words.txt");
+		File wordFile = new File(".\\assets\\words.txt");
 		
 //		try {
 //			Scanner scan = new Scanner(wordFile);
@@ -68,50 +72,43 @@ public class Juego {
 		compararPalabra(palabra);
 	}
 	
-	public  String[] mostrarPalabraSeleccionada() {
+	private String[] mostrarPalabraSeleccionada() {
 		 //List<String> palabraSelec = Arrays.asList(partirPalabra(palabraSeleccionadaDeLista));
 		String[] palabraSelec = partirPalabra(palabraSeleccionadaDeLista);
 		return palabraSelec;
 	}
 	
-	public void compararPalabra(String palabra) {
+	private void compararPalabra(String palabra) {
 		for (int i = 0; i < palabraSeleccionadaDeLista.length(); i++) {	
 			ActualizarEstatusLetraDePalabra(palabraSeleccionadaDeLista,palabraIngresada.charAt(i));
 		}
 	}
 	
-	public void ActualizarEstatusLetraDePalabra(String palabra, char letra) {
-	//	System.out.println(palabraSeleccionadaDeLista + " " + palabraSeleccionadaDeLista.length());
+	private void ActualizarEstatusLetraDePalabra(String palabra, char letra) {
+		//System.out.println(palabraSeleccionadaDeLista + " " + palabraSeleccionadaDeLista.length());
 		List<String> palabraSelec = Arrays.asList(partirPalabra(palabraSeleccionadaDeLista));
 		String[] palabraUser = partirPalabra(palabraIngresada);
 	
-		for(int i= 0 ; i< 5; i++) {
-			if(palabraSelec.contains(palabraUser[i])) { //Pertenece alguna letra ingresada a la palabra seleccionada? 
-				if(palabraSelec.get(i).equals(palabraUser[i])) { //Esta la letra ingresada en la misma posicion que en la palabra seleccionada?
-					MainForm.cambiarEstadoPanel(i, Color.green);
+		contadorVerdes = 0;	//reinicia la variable cada vez que va a entrar al ciclo
+		//if(contadorVerdes < 5) {
+			for(int i= 0 ; i< 5; i++) {
+				if(palabraSelec.contains(palabraUser[i])) { //Pertenece alguna letra ingresada a la palabra seleccionada? 
+					if(palabraSelec.get(i).equals(palabraUser[i])) { //Esta la letra ingresada en la misma posicion que en la palabra seleccionada?
+						MainForm.cambiarEstadoPanel(i, Color.green);
+						contadorVerdes++;
+					}
+					else {
+						MainForm.cambiarEstadoPanel(i, Color.yellow);
+					}	
 				}
 				else {
-					MainForm.cambiarEstadoPanel(i, Color.yellow);
-				}	
+					MainForm.cambiarEstadoPanel(i, Color.gray);
+				}
 			}
-			else {
-				MainForm.cambiarEstadoPanel(i, Color.gray);
-			}
-//		for (int i = 0; i < 5; i++) {
-//            
-//			if(letra == palabraSeleccionadaDeLista.charAt(i)) {
-//            	
-//				palabraEstatus[i] = EstadoLetra.CorrectaNoUbicada;
-//
-//                if(palabra.charAt(i) == palabraSeleccionadaDeLista.charAt(i)) {
-//                    palabraEstatus[i] = EstadoLetra.CorrectaUbicada;
-//                }
-//            }
-//            else {
-//            	palabraEstatus[i] = EstadoLetra.Incorrecta;
-//            }
-        }
-		
+		/*}
+		else {
+			consultarVictoria();
+		}*/
     }
 	
 	//Herramientas
@@ -126,4 +123,19 @@ public class Juego {
 		return this.intentos;
 	}
 	
+	public int contadorVerdes() {
+		return this.contadorVerdes;
+	}
+	
+	public void consultarVictoria() {
+		if(contadorVerdes() == 5) {
+			JOptionPane.showMessageDialog(null, "GANASTE", "Felicidades", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	public void consultarDerrota() {
+		if(intentosRestantes() == 0 && contadorVerdes() < 5) {
+			JOptionPane.showMessageDialog(null, "PERDISTE", "...", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
 }

@@ -56,15 +56,7 @@ public class MainForm {
 		});
 	}
 
-	
 
-//	public static void escribirLabels(ArrayList<JLabel> array, char a) {
-//		
-//		for()
-//		
-//	}
-//	
-	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -106,12 +98,12 @@ public class MainForm {
 					lblF1.clear();
 					
 					crearLabel(palabra, panel_1);
-				
-
 					
 					juego.obtenerPalabraIngresada(textField.getText().trim());
 					textField.setText("");
 					
+					juego.consultarVictoria();
+					juego.consultarDerrota();
 				}
 			}
 		});
@@ -126,9 +118,6 @@ public class MainForm {
 		panel_1.setLayout(new GridLayout(0, 5));
 		panel_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		panel_1.setOpaque(true);
-		
-		//crearLabel(this.juego.mostrarPalabraSeleccionada(), panel_1);
-		
 		
 		}
 		
