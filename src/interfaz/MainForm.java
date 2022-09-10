@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import juego.Juego;
+import juego.Juego.EstadoJuego;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -29,15 +30,23 @@ public class MainForm {
 	private final JFrame frame = new JFrame();
 	private JTextField textField;
 	public JPanel panel_1;
-	public Juego juego = new Juego();
+	private String idioma;
+	public Juego juego;
 	static ArrayList<JLabel> lblF1 = new ArrayList<JLabel>();
 
+	public int intentos;
+	public enum Status {StandBy, EnProceso, Reinicio, Terminado};
+	private static Status status;
 	/**
 	 * Create the application.
 	 */
-	public MainForm() {
+	public MainForm(String idioma) {
+		this.idioma = idioma;
+		
+		this.juego = new Juego(idioma);
 		initialize();
 		panel_1 = new JPanel();
+	
 	}
 	
 	/**
@@ -47,7 +56,7 @@ public class MainForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainForm window = new MainForm();
+					MainForm window = new MainForm("Español");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,7 +78,7 @@ public class MainForm {
 		frame.setBounds(650, 250, 642, 415);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+		System.out.println(idioma + " idioma");
 		textField = new JTextField();
 		textField.setBounds(217, 60, 173, 43);
 		frame.getContentPane().add(textField);
@@ -84,6 +93,24 @@ public class MainForm {
 		
 		JPanel panel_1 = new JPanel();
 		
+		Object[] opciones = {"Si", "No", "Cerrar"}; //Opciones para los botones
+		
+		System.out.println(juego.consultarEstado());
+		
+		
+		
+
+		
+		if(checkStatus() == Status.Reinicio) {
+			intentos = 5;
+			panel_1.removeAll();
+			panel_1.revalidate();
+			panel_1.repaint();
+			setStatus(Status.EnProceso);
+		}
+		
+
+		
 		
 		boton1.addActionListener(new ActionListener() {
 			//Juego game = new Juego();
@@ -95,15 +122,81 @@ public class MainForm {
 					JOptionPane.showMessageDialog(null, "Palabra Invalida", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else{
-					lblF1.clear();
 					
-					crearLabel(palabra, panel_1);
+				
+						lblF1.clear();
 					
-					juego.obtenerPalabraIngresada(textField.getText().trim());
-					textField.setText("");
+						crearLabel(palabra, panel_1);
 					
-					juego.consultarVictoria();
-					juego.consultarDerrota();
+						juego.obtenerPalabraIngresada(textField.getText().trim()
+								.toLowerCase());
+						textField.setText("");
+					
+					
+					
+					if(juego.consultarVictoria()) {
+						
+						int result = JOptionPane.showOptionDialog(null, "Reiniciar?", "Ganaste!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, null);
+						
+						
+						
+						if(result == JOptionPane.CANCEL_OPTION) { //Cierra el programa en caso de que se elija la opcion cerrar
+							
+							frame.dispose();
+						}
+
+						if(result == JOptionPane.YES_OPTION) { //Reinicia el Juego
+							
+							juego.reiniciarJuego();
+							panel_1.removeAll();
+							panel_1.revalidate();
+							panel_1.repaint();
+							
+							
+							setStatus(Status.Reinicio);
+						}
+					
+						if(result == JOptionPane.NO_OPTION) {
+							frame.dispose();
+							volverAHome();
+						}
+					
+					}		
+					
+					
+					
+					
+					if(juego.consultarDerrota()) {
+						
+						
+						int result2 = JOptionPane.showOptionDialog(null, "Reiniciar?", "Perdiste!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, null);
+						
+						
+						
+						if(result2 == JOptionPane.CANCEL_OPTION) { //Cierra el programa en caso de que se elija la opcion cerrar
+							
+							frame.dispose();
+						}
+
+						if(result2 == JOptionPane.YES_OPTION) { //Reinicia el Juego
+							
+							juego.reiniciarJuego();
+							panel_1.removeAll();
+							panel_1.revalidate();
+							panel_1.repaint();
+							
+							
+							setStatus(Status.Reinicio);						
+						
+						}
+						
+						if(result2 == JOptionPane.NO_OPTION) {
+							frame.dispose();
+							volverAHome();
+						}
+					
+					}
+
 				}
 			}
 		});
@@ -149,11 +242,13 @@ public class MainForm {
 		auxJ.setOpaque(true);
 		auxJ.setBackground(color);	
 	}
-	
+	//TW Cen MT
 	public static void crearLabel(String palabra, JPanel panel) {	
 		String[] splitWord = palabra.split("");
 		for(int i = 0; i< splitWord.length; i++) {
-			JLabel aux = new JLabel(splitWord[i], JLabel.CENTER);
+			JLabel aux = new JLabel(splitWord[i].toUpperCase(), JLabel.CENTER);
+			aux.setFont(new Font("TW Cen MT", Font.BOLD, 36));
+
 			//System.out.println(splitWord[i]);
 			panel.add(aux);
 			panel.revalidate();
@@ -167,4 +262,46 @@ public class MainForm {
 		this.frame.setVisible(true);
 	}
 
+//	public static void terminarJuego() {
+//		Object[] opciones = {"Si", "No", "Cerrar"}; //Opciones para los botones
+//
+//		
+//		int result = JOptionPane.showOptionDialog(null, "Reiniciar?", "Ganaste!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, null);
+//	
+//	
+//	
+//		if(result == JOptionPane.CANCEL_OPTION) { //Cierra el programa en caso de que se elija la opcion cerrar
+//			
+//			setStatus(Status.Terminado);
+//		}
+//
+//		if(result == JOptionPane.YES_OPTION) { //Reinicia el Juego
+//			
+//			
+//			setStatus(Status.Reinicio);
+//		}
+//	
+//	
+//	
+//	}
+
+
+	private static  void setStatus(Status estado) {
+		
+		status = estado;		
+	}
+
+	public Status checkStatus() {
+		
+		return this.status;
+	}
+
+	public void volverAHome() {
+		
+		PrimerPantalla home = new PrimerPantalla();
+		home.initialize();
+		home.frame.setVisible(true);
+	}
+	
+	
 }
