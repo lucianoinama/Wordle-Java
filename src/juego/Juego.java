@@ -211,6 +211,11 @@ public class Juego {
 		
 	}
 
+	public String getPalabraJuego() {
+		
+		return this.palabraSeleccionadaDeLista;
+	}
+
 
 }
 

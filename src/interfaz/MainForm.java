@@ -169,7 +169,7 @@ public class MainForm {
 					if(juego.consultarDerrota()) {
 						
 						
-						int result2 = JOptionPane.showOptionDialog(null, "Reiniciar?", "Perdiste!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, null);
+						int result2 = JOptionPane.showOptionDialog(null,"Palabra a descubrir: " + juego.getPalabraJuego() + "\n" + "Reiniciar?", "Perdiste!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, null);
 						
 						
 						
