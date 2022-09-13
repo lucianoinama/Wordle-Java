@@ -53,7 +53,7 @@ public class PrimerPantalla {
 		
 		titulo = new JLabel("");
 		
-		ImageIcon banner = new ImageIcon("C:\\Users\\agusl\\Desktop\\Universidad\\Progra III\\tpwordle\\assets\\images\\logo.jpg");
+		ImageIcon banner = new ImageIcon(".\\assets\\images\\logo.jpg");
 		
 		Image imgM = banner.getImage();
 		
@@ -80,7 +80,7 @@ public class PrimerPantalla {
 		
 		JLabel lblNewLabel = new JLabel("Seleccionar Idioma");
 		lblNewLabel.setBounds(242, 121, 118, 21);
-		String[] idiomas = {"Español", "Inglés"};
+		String[] idiomas = {"Espaï¿½ol", "Inglï¿½s"};
 		JComboBox comboBox = new JComboBox(idiomas);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
