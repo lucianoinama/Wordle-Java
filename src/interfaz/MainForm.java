@@ -78,7 +78,7 @@ public class MainForm {
 		frame.setBounds(650, 250, 642, 415);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		System.out.println(idioma + " idioma");
+	//	System.out.println(idioma + " idioma");
 		textField = new JTextField();
 		textField.setBounds(217, 60, 173, 43);
 		frame.getContentPane().add(textField);
@@ -95,7 +95,7 @@ public class MainForm {
 		
 		Object[] opciones = {"Si", "No", "Cerrar"}; //Opciones para los botones
 		
-		System.out.println(juego.consultarEstado());
+	//	System.out.println(juego.consultarEstado());
 		
 		
 		

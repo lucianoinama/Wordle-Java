@@ -37,10 +37,8 @@ public class Juego {
 	
 	public Juego(String idioma){
 		this.idioma = idioma;
-		System.out.println(idioma + "IDIOMA JUEGO");
 		setStatus(EstadoJuego.EnProceso);
 		seleccionarPalabraAleatoria();
-		System.out.println(palabraSeleccionadaDeLista);
 		mostrarPalabraSeleccionada();
 	};
 	
@@ -56,15 +54,10 @@ public class Juego {
 		}
 		
 		
-		//		try {
-//			Scanner scan = new Scanner(wordFile);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+
 			
 		List<String> listaDePalabras = new ArrayList<String>();	
 		Random r= new Random();
-		//palabraSeleccionadaDeLista = listaDePalabras[r.nextInt(listaDePalabras.length)];
 		
 		try {
 			listaDePalabras = Files.readAllLines(wordFile.toPath());
@@ -72,16 +65,14 @@ public class Juego {
 			
 		}
 		
-		System.out.println(listaDePalabras.toString());
+	//	System.out.println(listaDePalabras.toString());
 		palabraSeleccionadaDeLista = listaDePalabras.get(r.nextInt(listaDePalabras.size()));
 		palabraSeleccionadaDeLista.trim();
 	}
 	
 	public void obtenerPalabraIngresada(String palabra) {
 		this.palabraIngresada = palabra;
-		System.out.println(palabra);
 		intentos--;
-		System.out.println(intentos);
 		//compararPalabra(palabra);
 		ActualizarEstatusLetraDePalabra();
 	}
@@ -104,7 +95,6 @@ public class Juego {
 		String[] palabraUser = partirPalabra(palabraIngresada);
 		int contadorL = 0;
 		contadorVerdes = 0;	//reinicia la variable cada vez que va a entrar al ciclo
-		//if(contadorVerdes < 5) {
 			for(int i= 0 ; i< 5; i++) {
 				if(palabraSelec.contains(palabraUser[i])) { //Pertenece alguna letra ingresada a la palabra seleccionada? 
 					if(palabraSelec.get(i).equals(palabraUser[i])) { //Esta la letra ingresada en la misma posicion que en la palabra seleccionada?
@@ -125,9 +115,7 @@ public class Juego {
 		
 			
 			if(contadorL == 5) {
-				System.out.println(contadorL + " ACA");
 				setStatus(EstadoJuego.Victoria); //El Usuario gano el juego
-				//MainForm.terminarJuego();
 			
 			}
 			
@@ -136,10 +124,7 @@ public class Juego {
 				setStatus(EstadoJuego.Derrota);
 			}
 			
-			/*}
-		else {
-			consultarVictoria();
-		}*/
+	
     }
 	
 	//Herramientas
