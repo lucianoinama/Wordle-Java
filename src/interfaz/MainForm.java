@@ -56,7 +56,7 @@ public class MainForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainForm window = new MainForm("Español");
+					MainForm window = new MainForm("Espaï¿½ol");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -123,7 +123,7 @@ public class MainForm {
 				}
 				else{
 					
-				
+						
 						lblF1.clear();
 					
 						crearLabel(palabra, panel_1);
@@ -236,14 +236,14 @@ public class MainForm {
 	}
 
 
-	public static void cambiarEstadoPanel(int posicion , Color color) {
+	public static void cambiarEstadoPanel(int posicion , Color color) { //Cambia el color de un panel dado por la posicion en el arraylist.
 		JLabel auxJ =  lblF1.get(posicion);
 		//System.out.println(auxJ.toString());
 		auxJ.setOpaque(true);
 		auxJ.setBackground(color);	
 	}
 	//TW Cen MT
-	public static void crearLabel(String palabra, JPanel panel) {	
+	public static void crearLabel(String palabra, JPanel panel) {	//Crea un label, le asigna la palabra pasada por parametro y lo aÃ±ade al panel pasado por parametro
 		String[] splitWord = palabra.split("");
 		for(int i = 0; i< splitWord.length; i++) {
 			JLabel aux = new JLabel(splitWord[i].toUpperCase(), JLabel.CENTER);
@@ -262,46 +262,25 @@ public class MainForm {
 		this.frame.setVisible(true);
 	}
 
-//	public static void terminarJuego() {
-//		Object[] opciones = {"Si", "No", "Cerrar"}; //Opciones para los botones
-//
-//		
-//		int result = JOptionPane.showOptionDialog(null, "Reiniciar?", "Ganaste!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, null);
-//	
-//	
-//	
-//		if(result == JOptionPane.CANCEL_OPTION) { //Cierra el programa en caso de que se elija la opcion cerrar
-//			
-//			setStatus(Status.Terminado);
-//		}
-//
-//		if(result == JOptionPane.YES_OPTION) { //Reinicia el Juego
-//			
-//			
-//			setStatus(Status.Reinicio);
-//		}
-//	
-//	
-//	
-//	}
 
 
-	private static  void setStatus(Status estado) {
+	private static  void setStatus(Status estado) { // cambia el enum de estado
 		
 		status = estado;		
 	}
 
-	public Status checkStatus() {
+	public Status checkStatus() { //devuelve el enum de estado
 		
 		return this.status;
 	}
 
-	public void volverAHome() {
+	public void volverAHome() { //Inicia la pantalla de inicio
 		
 		PrimerPantalla home = new PrimerPantalla();
 		home.initialize();
 		home.frame.setVisible(true);
 	}
+	
 	
 	
 }

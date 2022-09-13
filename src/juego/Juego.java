@@ -46,25 +46,21 @@ public class Juego {
 	
 	//Metodos
 	
-	private void seleccionarPalabraAleatoria() {
+	private void seleccionarPalabraAleatoria() { // Dependiendo del lenguaje elegido, lee un archivo de texto con las palabras a presentar.
 		//File wordFile = new File("C:\\Users\\Juani\\git\\tpwordle\\assets\\words.txt");
 		File wordFile = new File(".\\assets\\words.txt");
 		
-		if(idioma == "Inglés") {
+		if(idioma == "Inglï¿½s") {
 			wordFile = new File(".\\assets\\words-en.txt");
 
 		}
 		
 		
-		//		try {
-//			Scanner scan = new Scanner(wordFile);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+
 			
 		List<String> listaDePalabras = new ArrayList<String>();	
 		Random r= new Random();
-		//palabraSeleccionadaDeLista = listaDePalabras[r.nextInt(listaDePalabras.length)];
+	
 		
 		try {
 			listaDePalabras = Files.readAllLines(wordFile.toPath());
@@ -77,7 +73,7 @@ public class Juego {
 		palabraSeleccionadaDeLista.trim();
 	}
 	
-	public void obtenerPalabraIngresada(String palabra) {
+	public void obtenerPalabraIngresada(String palabra) { //obtiene la palabra ingresada por el usuario.
 		this.palabraIngresada = palabra;
 		System.out.println(palabra);
 		intentos--;
@@ -87,18 +83,14 @@ public class Juego {
 	}
 	
 	private String[] mostrarPalabraSeleccionada() {
-		 //List<String> palabraSelec = Arrays.asList(partirPalabra(palabraSeleccionadaDeLista));
+		 
 		String[] palabraSelec = partirPalabra(palabraSeleccionadaDeLista);
 		return palabraSelec;
 	}
 	
-//	private void compararPalabra(String palabra) {
-//		for (int i = 0; i < palabraSeleccionadaDeLista.length(); i++) {	
-//			ActualizarEstatusLetraDePalabra(palabraSeleccionadaDeLista,palabraIngresada.charAt(i));
-//		}
-//	}
+
 	
-	private void ActualizarEstatusLetraDePalabra() {
+	private void ActualizarEstatusLetraDePalabra() { //Realiza la logica del juego. Si la letra coincide con la de la palabra ingresada, cambia el color del panel a verde. Si la letra existe pero no coincide lo cambia a amarillo, y si no existe lo cambia a gris. Tambien cuenta los intentos del usuario y determina victoria o derrota.
 		//System.out.println(palabraSeleccionadaDeLista + " " + palabraSeleccionadaDeLista.length());
 		List<String> palabraSelec = Arrays.asList(partirPalabra(palabraSeleccionadaDeLista));
 		String[] palabraUser = partirPalabra(palabraIngresada);
