@@ -80,7 +80,7 @@ public class PrimerPantalla {
 		
 		JLabel lblNewLabel = new JLabel("Seleccionar Idioma");
 		lblNewLabel.setBounds(242, 121, 118, 21);
-		String[] idiomas = {"Espa�ol", "Ingl�s"};
+		String[] idiomas = {"Espanol", "Ingles"};
 		JComboBox comboBox = new JComboBox(idiomas);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {

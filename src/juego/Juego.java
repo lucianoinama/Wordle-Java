@@ -37,10 +37,10 @@ public class Juego {
 	
 	public Juego(String idioma){
 		this.idioma = idioma;
-		System.out.println(idioma + "IDIOMA JUEGO");
+	//	System.out.println(idioma + "IDIOMA JUEGO");
 		setStatus(EstadoJuego.EnProceso);
 		seleccionarPalabraAleatoria();
-		System.out.println(palabraSeleccionadaDeLista);
+	//	System.out.println(palabraSeleccionadaDeLista);
 		mostrarPalabraSeleccionada();
 	};
 	
@@ -50,7 +50,7 @@ public class Juego {
 		//File wordFile = new File("C:\\Users\\Juani\\git\\tpwordle\\assets\\words.txt");
 		File wordFile = new File(".\\assets\\words.txt");
 		
-		if(idioma == "Ingl�s") {
+		if(idioma == "Ingles") {
 			wordFile = new File(".\\assets\\words-en.txt");
 
 		}
@@ -68,17 +68,14 @@ public class Juego {
 			
 		}
 		
-		System.out.println(listaDePalabras.toString());
+	//	System.out.println(listaDePalabras.toString());
 		palabraSeleccionadaDeLista = listaDePalabras.get(r.nextInt(listaDePalabras.size()));
 		palabraSeleccionadaDeLista.trim();
 	}
 	
 	public void obtenerPalabraIngresada(String palabra) { //obtiene la palabra ingresada por el usuario.
 		this.palabraIngresada = palabra;
-		System.out.println(palabra);
 		intentos--;
-		System.out.println(intentos);
-		//compararPalabra(palabra);
 		ActualizarEstatusLetraDePalabra();
 	}
 	
@@ -117,7 +114,6 @@ public class Juego {
 		
 			
 			if(contadorL == 5) {
-				System.out.println(contadorL + " ACA");
 				setStatus(EstadoJuego.Victoria); //El Usuario gano el juego
 				//MainForm.terminarJuego();
 			
